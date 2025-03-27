@@ -157,39 +157,22 @@ const handleConnecttron=async()=>{
             <Wallet className="mr-2 h-5 w-5" /> Connect Wallet
           </Button>
         </motion.div>
-        <div className="relative flex items-center py-2">
+        {/* <div className="relative flex items-center py-2">
           <div className="flex-grow border-t border-gray-700"></div>
           <span className="flex-shrink mx-4 text-gray-400 text-sm">or</span>
           <div className="flex-grow border-t border-gray-700"></div>
-        </div>
+        </div> */}
         <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-          <Button
+          {/* <Button
             onClick={() => setShowCreateDialog(true)}
             variant="outline"
             className="w-full h-12 border-purple-500/30 text-purple-300 hover:bg-purple-900/20 hover:text-white hover:border-purple-400"
           >
             <Plus className="mr-2 h-5 w-5" /> Create New Wallet
-          </Button>
+          </Button> */}
         </motion.div>
       </CardContent>
-      <CardFooter className="flex justify-center pb-6 pt-2">
-        <p className="text-gray-400 text-xs text-center">
-          By connecting, you agree to the{" "}
-          <a
-            href="#"
-            className="text-purple-400 hover:text-purple-300 underline"
-          >
-            Terms of Service
-          </a>{" "}
-          and{" "}
-          <a
-            href="#"
-            className="text-purple-400 hover:text-purple-300 underline"
-          >
-            Privacy Policy
-          </a>
-        </p>
-      </CardFooter>
+    
     </>
   );
 
@@ -233,16 +216,16 @@ const handleConnecttron=async()=>{
         {activeView === "connect" && (
           <>
             <CardHeader className="pb-0">
-              <Button
+              {/* <Button
                 variant="ghost"
                 onClick={() => setActiveView("main")}
                 className="absolute left-4 top-4 text-gray-400 hover:text-white hover:bg-gray-800/50"
               >
                 Back
-              </Button>
-              <CardTitle className="text-center text-xl text-white pt-6">
+              </Button> */}
+              {/* <CardTitle className="text-center text-xl text-white pt-6">
                 Connect Your Wallet
-              </CardTitle>
+              </CardTitle> */}
             </CardHeader>
             <CardContent className="pt-6">
               <ConnectOptions onConnect={connectWallet} />

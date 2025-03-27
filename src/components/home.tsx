@@ -3,6 +3,17 @@ import { motion } from "framer-motion";
 import Background from "./layout/Background";
 import WalletConnector from "./wallet/WalletConnector";
 import Dashboard from "./dashboard/Dashboard";
+import ConnectOptions from "./wallet/ConnectOptions";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardFooter,
+} from "@/components/ui/card";
+import { useNavigate } from "react-router-dom";
+
 
 const Home: React.FC = () => {
   const [isWalletConnected, setIsWalletConnected] = useState(false);
@@ -12,7 +23,9 @@ const Home: React.FC = () => {
     seedPhrase?: string;
   } | null>(null);
 
-
+  const [walletAddress, setWalletAddress] = useState<string | null>(null);
+  const [isConnected, setIsConnected] = useState<boolean>(false);
+  const [mainwalletAddress, setmainWalletAddress] = useState('');
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -37,6 +50,38 @@ const Home: React.FC = () => {
     setIsWalletConnected(true);
   };
 
+
+  const navigate = useNavigate();
+  const connectWallet = async () => {
+    const tronLink = (window as any).tronLink;
+    if (!tronLink) {
+      alert("❌ TronLink is not installed. Please install it first.");
+      return;
+    }
+  
+    try {
+      console.log("🔄 Requesting TronLink connection...");
+      await tronLink.request({ method: "tron_requestAccounts" });
+  
+      const tronWeb = (window as any).tronWeb;
+      if (tronWeb && tronWeb.defaultAddress.base58) {
+        const address = tronWeb.defaultAddress.base58;
+        console.log("✅ Wallet connected:", address);
+        setmainWalletAddress(address);
+        setIsConnected(true);
+        localStorage.setItem("mainWalletAddress", address);
+  
+        // 🔁 Redirect to dashboard
+        navigate("/dashboard");
+      } else {
+        console.log("⚠️ TronLink is installed but no wallet is connected.");
+        alert("Please open TronLink and connect your wallet.");
+      }
+    } catch (error) {
+      console.error("❌ Error connecting to TronLink:", error);
+      alert("Failed to connect to TronLink. Please try again.");
+    }
+  };
   const handleWalletCreated = (data: {
     address: string;
     seedPhrase: string;
@@ -87,11 +132,15 @@ const Home: React.FC = () => {
                 transition={{ delay: 0.4, duration: 0.5 }}
                 className="w-full max-w-md"
               >
-                <WalletConnector
+                {/* <WalletConnector
                   onWalletConnected={handleWalletConnected}
                   onWalletCreated={handleWalletCreated}
                   isOpen={true}
-                />
+                /> */}
+
+                <CardContent className=" border-2px rounded-xl backdrop-blur-md flex flex-col bg-black/40 space-y-1.5 p-6 text-center pb-2">
+              <ConnectOptions onConnect={connectWallet} />
+            </CardContent>
               </motion.div>
             </div>
           ) : (

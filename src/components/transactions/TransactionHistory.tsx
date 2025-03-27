@@ -36,42 +36,7 @@ interface TransactionHistoryProps {
 
 const TransactionHistory = ({
   transactions = [
-    {
-      id: "tx1",
-      date: "2023-06-15T14:30:00",
-      type: "receive" as const,
-      amount: "+25.5 TRX",
-      status: "completed" as const,
-      address: "TY65QiDt4hLTMpf3WRzcX357BnmdxT2sw9",
-      hash: "0x7d92f8d5c9e8f9d6e9c8d7f6e5d4c3b2a1",
-    },
-    {
-      id: "tx2",
-      date: "2023-06-14T09:15:00",
-      type: "send" as const,
-      amount: "-10.0 TRX",
-      status: "completed" as const,
-      address: "TJRabPrwbZy45sbavfcjinPJC18kjpRTv8",
-      hash: "0x1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7",
-    },
-    {
-      id: "tx3",
-      date: "2023-06-13T18:45:00",
-      type: "swap" as const,
-      amount: "5.0 TRX → 10.5 BTT",
-      status: "pending" as const,
-      address: "TN3W4H6rK2ce4vX9YnFQHwKENnHjoxb3m9",
-      hash: "0x9p8o7n6m5l4k3j2i1h0g9f8e7d6c5b4a3",
-    },
-    {
-      id: "tx4",
-      date: "2023-06-12T11:20:00",
-      type: "stake" as const,
-      amount: "-100.0 TRX",
-      status: "failed" as const,
-      address: "TVj7RNVHy6thbM7BWdSe9G6gXwKhjhdNZS",
-      hash: "0x3a4b5c6d7e8f9g0h1i2j3k4l5m6n7o8p9",
-    },
+    
   ],
   refreshTrigger,
 }: TransactionHistoryProps) => {
