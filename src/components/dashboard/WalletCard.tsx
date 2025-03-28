@@ -26,40 +26,52 @@ const WalletCard = () => {
   const [showQR, setShowQR] = useState(false);
 
   useEffect(() => {
-    const fetchWalletData = async () => {
-
-      try {
-        if (window.tronWeb && window.tronWeb.ready) {
-          const walletAddress = window.tronWeb.defaultAddress.base58;
-          setWalletAddress(walletAddress);
-          localStorage.setItem("mainWalletAddress", walletAddress);
-
-          // TRX Balance
-          const balanceInSun = await window.tronWeb.trx.getBalance(
-            walletAddress
-          );
-          const trx = window.tronWeb.fromSun(balanceInSun);
-          setTrxBalance(trx);
-
-          // USDT Balance
-          const contract = await window.tronWeb
-            .contract()
-            .at("TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf");
-          const balance = await contract.balanceOf(walletAddress).call();
-          const usdt = window.tronWeb.toDecimal(balance) / 1e6;
-          setUsdtBalance(usdt.toFixed(2));
-        } else {
-          console.warn("TronLink not connected or not ready");
+    let intervalId: NodeJS.Timeout;
+    let retries = 0;
+    const maxRetries = 10;
+  
+    const waitForTronWeb = async () => {
+      if (window.tronWeb && window.tronWeb.ready) {
+        clearInterval(intervalId);
+        fetchWalletData(); // call actual data fetch function
+      } else {
+        retries++;
+        if (retries >= maxRetries) {
+          clearInterval(intervalId);
+          setLoading(false); // stop loading even if failed
+          console.warn("TronLink not detected or not ready after retries");
         }
+      }
+    };
+  
+    intervalId = setInterval(waitForTronWeb, 500); // check every 500ms
+  
+    const fetchWalletData = async () => {
+      try {
+        const walletAddress = window.tronWeb.defaultAddress.base58;
+        setWalletAddress(walletAddress);
+        localStorage.setItem("mainWalletAddress", walletAddress);
+  
+        const balanceInSun = await window.tronWeb.trx.getBalance(walletAddress);
+        const trx = window.tronWeb.fromSun(balanceInSun);
+        setTrxBalance(trx);
+  
+        const contract = await window.tronWeb
+          .contract()
+          .at("TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf");
+        const balance = await contract.balanceOf(walletAddress).call();
+        const usdt = window.tronWeb.toDecimal(balance) / 1e6;
+        setUsdtBalance(usdt.toFixed(2));
       } catch (error) {
         console.error("Error fetching wallet data:", error);
       } finally {
         setLoading(false);
       }
     };
-
-    fetchWalletData();
+  
+    return () => clearInterval(intervalId); // cleanup on unmount
   }, []);
+  
 
   const handleCopyAddress = () => {
     if (!walletAddress) return;

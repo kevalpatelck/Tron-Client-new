@@ -409,6 +409,8 @@ const TransactionList = forwardRef((props, ref) => {
           </div>
         </div>
       )}
+
+      
       {historyPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/70 z-50">
           <div className="bg-white rounded-lg shadow-lg w-[600px] max-h-[80vh] overflow-y-auto p-6">
