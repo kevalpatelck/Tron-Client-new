@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   Card,
@@ -31,25 +31,21 @@ interface WalletConnectorProps {
   isOpen?: boolean;
 }
 
-
-const handleConnecttron=()=>{
+const handleConnecttron = () => {
   console.log("ascascas");
-  
-}
+};
 const WalletConnector: React.FC<WalletConnectorProps> = ({
   onWalletConnected = () => {},
   onWalletCreated = () => {},
   isOpen = true,
 }) => {
   const [activeView, setActiveView] = useState<"main" | "connect" | "create">(
-    "main",
+    "main"
   );
   const [showCreateDialog, setShowCreateDialog] = useState<boolean>(false);
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [isConnected, setIsConnected] = useState<boolean>(false);
-  const [mainwalletAddress, setmainWalletAddress] = useState('');
-  
-
+  const [mainwalletAddress, setmainWalletAddress] = useState("");
 
   const navigate = useNavigate();
 
@@ -59,11 +55,11 @@ const WalletConnector: React.FC<WalletConnectorProps> = ({
       alert("❌ TronLink is not installed. Please install it first.");
       return;
     }
-  
+
     try {
       console.log("🔄 Requesting TronLink connection...");
       await tronLink.request({ method: "tron_requestAccounts" });
-  
+
       const tronWeb = (window as any).tronWeb;
       if (tronWeb && tronWeb.defaultAddress.base58) {
         const address = tronWeb.defaultAddress.base58;
@@ -71,7 +67,7 @@ const WalletConnector: React.FC<WalletConnectorProps> = ({
         setmainWalletAddress(address);
         setIsConnected(true);
         localStorage.setItem("mainWalletAddress", address);
-  
+
         // 🔁 Redirect to dashboard
         navigate("/dashboard");
       } else {
@@ -96,7 +92,7 @@ const WalletConnector: React.FC<WalletConnectorProps> = ({
 
   // const handleConnect = async (): Promise<void> => {
   //   const tronWeb = (window as any).tronWeb;
-  
+
   //   if (tronWeb) {
   //     if (!tronWeb.ready) {
   //       console.log("TronLink is installed, but the wallet is not connected.");
@@ -124,14 +120,13 @@ const WalletConnector: React.FC<WalletConnectorProps> = ({
     setActiveView("connect");
   };
 
-const handleConnecttron=async()=>{
-  if( window.tronWeb && window.tronWeb.ready){
-    const walletAddress=window.tronWeb.defaultAddress.base58;
-    setmainWalletAddress(walletAddress);
-    console.log(walletAddress);
-  }
-
-}
+  const handleConnecttron = async () => {
+    if (window.tronWeb && window.tronWeb.ready) {
+      const walletAddress = window.tronWeb.defaultAddress.base58;
+      setmainWalletAddress(walletAddress);
+      console.log(walletAddress);
+    }
+  };
 
   const renderMainView = () => (
     <>
@@ -149,8 +144,8 @@ const handleConnecttron=async()=>{
       <CardContent className="space-y-4 pt-4">
         <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
           <Button
-          onClick={() => setActiveView("connect")}
-        //  onClick={connectWallet}
+            onClick={() => setActiveView("connect")}
+            //  onClick={connectWallet}
             // onClick={() => handleConnecttron()}
             className="w-full h-12 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium shadow-lg shadow-purple-500/20 border-0"
           >
@@ -207,7 +202,7 @@ const handleConnecttron=async()=>{
   );
 
   return (
-    <div className="relative w-full max-w-md mx-auto bg-transparent  rounded-xl overflow-hidden bg-transparent">
+    <div className="relative w-full max-w-md mx-auto rounded-xl overflow-hidden bg-transparent">
       {/* <CircuitBackground /> */}
 
       <Card className="bg-black/40 backdrop-blur-md border-[1px] border-purple-500/20 overflow-hidden relative z-10">

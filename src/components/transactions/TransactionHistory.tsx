@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -9,10 +9,11 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { motion } from "framer-motion";
-import { RefreshCw } from "lucide-react";
+import { RefreshCw, Plus, Landmark, Import } from "lucide-react";
 import TransactionFilters from "./TransactionFilters";
 import TransactionList from "./TransactionList";
 import { useDataRefetch } from "./DataRefetchContext";
+import SliderImage from "../SliderImage";
 
 interface Transaction {
   id: string;
@@ -24,8 +25,6 @@ interface Transaction {
   hash: string;
 }
 
-
-
 interface TransactionHistoryProps {
   transactions?: Transaction[];
   refreshTrigger?: number;
@@ -35,9 +34,7 @@ interface TransactionHistoryProps {
 // }, [refreshTrigger]);
 
 const TransactionHistory = ({
-  transactions = [
-    
-  ],
+  transactions = [],
   refreshTrigger,
 }: TransactionHistoryProps) => {
   const [activeTab, setActiveTab] = useState("all");
@@ -48,6 +45,7 @@ const TransactionHistory = ({
     useState<Transaction | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
   const { triggerRefetch } = useDataRefetch();
+  const [showPopup, setShowPopup] = useState(false);
 
   // Filter transactions based on tab
   const filterTransactionsByTab = (tab: string) => {
@@ -60,7 +58,6 @@ const TransactionHistory = ({
   };
   // Simulate refreshing transactions
   const refreshTransactions = () => {
-  
     setIsRefreshing(true);
     setTimeout(() => {
       console.log("Transactions refreshed!");
@@ -76,7 +73,6 @@ const TransactionHistory = ({
   }) => {
     let filtered = [...transactions];
 
-
     useEffect(() => {
       refreshTransactions();
     }, [refreshTrigger]);
@@ -88,7 +84,7 @@ const TransactionHistory = ({
         (tx) =>
           tx.address.toLowerCase().includes(searchLower) ||
           tx.hash.toLowerCase().includes(searchLower) ||
-          tx.amount.toLowerCase().includes(searchLower),
+          tx.amount.toLowerCase().includes(searchLower)
       );
     }
 
@@ -129,49 +125,74 @@ const TransactionHistory = ({
     setDetailsOpen(true);
   };
 
+  const handlePopup = () => {
+    try {
+      setShowPopup(true);
+      
+      // setShowPopup(true); // Show popup after copy
+    } catch (err) {
+      // console.error("Clipboard error:", err);
+      // alert("❌ Failed to copy.");
+    }
+  };
+
+  const handlepopup = () => {};
+
   return (
-    <Card className="w-full bg-black/30 backdrop-blur-xl border-gray-800 shadow-lg overflow-hidden">
-      <CardHeader className="bg-gradient-to-r from-blue-900/20 to-purple-900/20 border-b border-gray-800">
-        <div className="flex justify-between items-center">
-          <CardTitle className="text-xl font-bold text-white">
-       Sub Accounts
-          </CardTitle>
-          
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={triggerRefetch}
-            className="text-gray-400 hover:text-blue-400 hover:bg-blue-900/20"
-          >
-            <motion.div
-              animate={{ rotate: isRefreshing ? 360 : 0 }}
-              transition={{ duration: 1, ease: "linear" }}
+    <>
+      <Card className="w-full bg-black/30 backdrop-blur-xl border-gray-800 shadow-lg overflow-hidden">
+        <CardHeader className="bg-gradient-to-r from-blue-900/20 to-purple-900/20 border-b border-gray-800">
+          <div className="flex justify-between items-center">
+            <CardTitle className="text-xl font-bold text-white">
+              Sub Accounts
+            </CardTitle>
+            <Button
+              variant="ghost"
+              onClick={handlePopup}
+              className="text-gray-100 hover:text-blue-400 hover:bg-blue-900/20 p-4 w-14 h-14 text-[16px]"
             >
-              <RefreshCw size={18} />
-            </motion.div>
-          </Button>
-        </div>
-      </CardHeader>
-      <CardContent className="p-4 space-y-4">
-        {/* <TransactionFilters onFilterChange={handleFilterChange} /> */}
+              <Import size={28} /> {/* Increase icon size too */}
+            </Button>
 
-        <Tabs
-          defaultValue="all"
-          value={activeTab}
-          onValueChange={filterTransactionsByTab}
-          className="w-full"
-        >
-          
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={triggerRefetch}
+              className="text-gray-400 hover:text-blue-400 hover:bg-blue-900/20"
+            >
+              <motion.div
+                animate={{ rotate: isRefreshing ? 360 : 0 }}
+                transition={{ duration: 1, ease: "linear" }}
+              >
+                <RefreshCw size={18} />
+              </motion.div>
+            </Button>
+          </div>
+        </CardHeader>
+        <CardContent className="p-4 space-y-4">
+          {/* <TransactionFilters onFilterChange={handleFilterChange} /> */}
 
-          <TabsContent value={activeTab} className="mt-5">
-            <TransactionList/>
-          </TabsContent>
-        </Tabs>
-      </CardContent>
-
-      {/* Transaction Details Dialog */}
-    
-    </Card>
+          <Tabs
+            defaultValue="all"
+            value={activeTab}
+            onValueChange={filterTransactionsByTab}
+            className="w-full"
+          >
+            <TabsContent value={activeTab} className="mt-5">
+              {/* <TransactionList  
+            
+            clickpopup={handlepopup}
+            > */}
+              <TransactionList />
+            </TabsContent>
+          </Tabs>
+        </CardContent>
+        {/* Transaction Details Dialog */}
+      </Card>
+      <div>
+        {showPopup && <SliderImage onClose={() => setShowPopup(false)} />}
+      </div>
+    </>
   );
 };
 

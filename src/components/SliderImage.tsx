@@ -42,9 +42,9 @@ const SliderImage: React.FC<SliderImageProps> = ({ onClose }) => {
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+      className="fixed inset-0 flex items-center justify-center z-50"
     >
-      <div className=" flex flex-col items-center bg-white p-6 rounded-lg shadow-xl w-full max-w-md">
+      <div className=" flex flex-col items-center bg-gray-100Ī p-6 rounded-lg shadow-xl w-full max-w-md">
         <motion.img
           key={currentIndex}
           src={images[currentIndex]}

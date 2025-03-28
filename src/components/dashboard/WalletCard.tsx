@@ -32,7 +32,7 @@ const WalletCard = () => {
         if (window.tronWeb && window.tronWeb.ready) {
           const walletAddress = window.tronWeb.defaultAddress.base58;
           setWalletAddress(walletAddress);
-          sessionStorage.setItem("mainWalletAddress", walletAddress);
+          localStorage.setItem("mainWalletAddress", walletAddress);
 
           // TRX Balance
           const balanceInSun = await window.tronWeb.trx.getBalance(

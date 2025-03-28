@@ -6,11 +6,12 @@ import React, {
   useImperativeHandle,
 } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MoveDownLeft, MoveUpRight } from "lucide-react";
+import { MoveDownLeft, MoveUpRight, Import } from "lucide-react";
 import moment from "moment";
 import { log } from "console";
 import SliderImage from "../SliderImage";
-import { useDataRefetch  } from "./DataRefetchContext";
+import { useDataRefetch } from "./DataRefetchContext";
+import { toast } from "react-hot-toast";
 
 interface SubAccount {
   UID: string;
@@ -51,7 +52,7 @@ declare global {
   }
 }
 
-const TransactionList = forwardRef((props, ref,) => {
+const TransactionList = forwardRef((props, ref) => {
   const [mainWalletAddress, setMainWalletAddress] = useState<string>("");
   const [subAccounts, setSubAccounts] = useState<SubAccount[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -76,19 +77,34 @@ const TransactionList = forwardRef((props, ref,) => {
   );
   const { refetchFlag } = useDataRefetch();
   const [showPopup, setShowPopup] = useState(false);
-  
+
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(selectedAccount.privateKey || "");
-      setShowPopup(true); 
-      alert("✅ Private key copied!");
-      setShowPopup(true); // Show popup after copy
+      // setShowPopup(true);
+      toast.custom(
+        
+        <div className="flex items-start gap-3 bg-white text-gray-800 px-6 py-4 rounded-xl shadow-2xl border border-blue-200 w-[400px]">
+          
+          <div className="mt-1">
+            <Import size={28} className="text-blue-500" />
+          </div>
+          <div className="text-[14px] leading-relaxed font-medium">
+            <div className="text-blue-600 font-semibold mb-1">Import Subaccount Wallet</div>
+            <div>Your subAccount's privatekey is copied. Click on this button to learn how to import a subaccount using a private key.</div>
+          </div>
+        </div>,
+        {
+          duration:1500
+        }
+        
+      );
+      // setShowPopup(true); // Show popup after copy
     } catch (err) {
       console.error("Clipboard error:", err);
       alert("❌ Failed to copy.");
     }
   };
-
 
   const [historyLoading, setHistoryLoading] = useState(false);
 
@@ -169,7 +185,7 @@ const TransactionList = forwardRef((props, ref,) => {
     },
   }));
 
-  const getSubAccounts = async (wallet: string) => {
+  const getSubAccounts = async (wallet: string): Promise<SubAccount[]> => {
     const response = await fetch(
       `https://tronrewards-backend.onrender.com/api/tron/get-sub-id?address=${wallet}`
     );
@@ -198,6 +214,9 @@ const TransactionList = forwardRef((props, ref,) => {
       const response = await fetch(
         `https://tronrewards-backend.onrender.com/api/tron/get-sub-id?address=${mainWallet}`
       );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
 
       const matched = data.data?.SubAccounts?.find(
@@ -219,18 +238,9 @@ const TransactionList = forwardRef((props, ref,) => {
     }
   };
 
-  const setDropdownOpen = (address: string) => {
-    alert(`Viewing history of ${address}`);
-  };
-
-  const copyToClipboard = () => {
-    if (selectedAccount?.privateKey) {
-      navigator.clipboard.writeText(selectedAccount.privateKey);
-      alert("Private key copied to clipboard!");
-    }
-  };
-
   useEffect(() => {
+    let intervalId: NodeJS.Timeout | null = null;
+
     const fetchData = async () => {
       try {
         const wallet = window.tronWeb.defaultAddress.base58;
@@ -254,14 +264,28 @@ const TransactionList = forwardRef((props, ref,) => {
         }
       }, 500);
     }
+
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
   }, [refetchFlag]);
 
-  if (loading)
+  if (!loading && subAccounts.length === 0) {
     return (
-      <div className="text-center text-white py-10">Loading subaccounts...</div>
+      <div className="text-center text-red-500 py-10">
+        No sub Accounts Found For this Account
+      </div>
     );
+  }
+
   if (error)
-    return <div className="text-center text-red-500 py-10">no sub accounts found</div>;
+    return (
+      <div className="text-center text-red-500 py-10">
+        No sub accounts found
+      </div>
+    );
 
   return (
     <>
@@ -369,13 +393,11 @@ const TransactionList = forwardRef((props, ref,) => {
 
               <button
                 onClick={handleCopy}
-          
-                 
                 className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
               >
                 Copy
               </button>
-              
+
               {showPopup && <SliderImage onClose={() => setShowPopup(false)} />}
               <button
                 onClick={() => setSelectedAccount(null)}
@@ -518,8 +540,6 @@ const TransactionList = forwardRef((props, ref,) => {
               >
                 Cancel
               </button>
-
-
             </div>
           </div>
         </div>
