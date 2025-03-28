@@ -122,6 +122,7 @@ const QuickActions = ({
                 <input
                   name="userName"
                   onChange={handleChange}
+                  required
                   placeholder="Enter Name"
                   className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white"
                 />

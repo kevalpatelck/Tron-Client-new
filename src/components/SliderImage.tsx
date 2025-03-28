@@ -44,7 +44,7 @@ const SliderImage: React.FC<SliderImageProps> = ({ onClose }) => {
       transition={{ duration: 0.5, ease: "easeOut" }}
       className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
     >
-      <div className="flex flex-col items-center bg-white p-6 rounded-lg shadow-xl w-full max-w-md">
+      <div className=" flex flex-col items-center bg-white p-6 rounded-lg shadow-xl w-full max-w-md">
         <motion.img
           key={currentIndex}
           src={images[currentIndex]}

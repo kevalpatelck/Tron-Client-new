@@ -7,6 +7,12 @@ import { Dialog, DialogContent } from "../ui/dialog";
 import Background from "../layout/Background";
 import { DataRefetchProvider } from "../transactions/DataRefetchContext";
 
+import SliderImage from "../SliderImage";
+
+
+// const [showPopup, setShowPopup] = useState(false);
+
+
 
 const SendTransaction = () => {
   return (
@@ -177,6 +183,9 @@ const Dashboard = ({
           <ReceiveTransaction address={walletAddress} />
         </DialogContent>
       </Dialog>
+
+      {/* {showPopup && <SliderImage onClose={() => setShowPopup(false)} />} */}
+
     </div>
   );
 };

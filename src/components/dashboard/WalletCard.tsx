@@ -81,8 +81,60 @@ const WalletCard = () => {
 
   if (loading) {
     return (
-      <Card className="w-full max-w-[450px] text-white p-4 bg-black/80 text-center">
-        <p>Loading wallet data...</p>
+      <Card className="bg-black/80 backdrop-blur-md border-purple-500/20 text-white overflow-hidden">
+        <CardHeader className="pb-2">
+        <CardTitle className="text-xl font-bold flex justify-between items-center">
+          <span>Main Wallet</span>
+          {/* <span className="text-purple-400 text-sm">TRX / USDT</span> */}
+        </CardTitle>
+      </CardHeader>
+
+      <CardContent>
+        <div className="flex flex-col space-y-4">
+          {/* TRX */}
+          <div className="flex items-end">
+            <span className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+              {trxBalance}
+            </span>
+            <span className="ml-2 text-gray-400">TRX</span>
+          </div>
+
+          {/* USDT */}
+          <div className="flex items-end">
+            <span className="text-2xl font-semibold text-green-400">
+              {/* {usdtBalance} */}<p className="text-[18px]">Getting usdt...</p>
+            </span>
+            <span className="ml-2 mb-1 text-gray-400">USDT</span>
+          </div>
+
+          {/* Address */}
+          <div className="flex items-center justify-between bg-gray-900/50 p-3 rounded-lg border border-purple-500/20">
+            <span className="text-gray-300 text-sm truncate mr-2">
+              {displayAddress}
+            </span>
+            <div className="flex space-x-2">
+              <Button
+                variant="ghost"
+                size="icon"
+                className={cn(
+                  "rounded-full bg-gray-800 hover:bg-gray-700 text-gray-300",
+                  copied && "bg-green-800 text-green-200"
+                )}
+                onClick={handleCopyAddress}
+              >
+                <Copy size={16} />
+              </Button>
+              
+            </div>
+          </div>
+
+          {showQR && walletAddress && (
+            <div className="mt-4 flex justify-center p-4 bg-white rounded-lg">
+              <QRCode value={walletAddress} size={128} />
+            </div>
+          )}
+        </div>
+      </CardContent>
       </Card>
     );
   }

@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MoveDownLeft, MoveUpRight } from "lucide-react";
 import moment from "moment";
 import { log } from "console";
-import SliderImage from "./SliderImage";
+import SliderImage from "../SliderImage";
 import { useDataRefetch  } from "./DataRefetchContext";
 
 interface SubAccount {
@@ -261,7 +261,7 @@ const TransactionList = forwardRef((props, ref,) => {
       <div className="text-center text-white py-10">Loading subaccounts...</div>
     );
   if (error)
-    return <div className="text-center text-red-500 py-10">Error: {error}</div>;
+    return <div className="text-center text-red-500 py-10">no sub accounts found</div>;
 
   return (
     <>
@@ -375,6 +375,7 @@ const TransactionList = forwardRef((props, ref,) => {
               >
                 Copy
               </button>
+              
               {showPopup && <SliderImage onClose={() => setShowPopup(false)} />}
               <button
                 onClick={() => setSelectedAccount(null)}

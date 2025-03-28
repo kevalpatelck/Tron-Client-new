@@ -153,7 +153,6 @@ const Home: React.FC = () => {
         </motion.div>
       </div>
 
-      {/* Footer with disconnect option when wallet is connected */}
       {isWalletConnected && (
         <motion.div
           className="fixed bottom-0 left-0 right-0 p-4 flex justify-center z-20"
@@ -174,3 +173,4 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+      {/* Footer with disconnect option when wallet is connected */}
