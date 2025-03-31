@@ -12,8 +12,8 @@ function App() {
     
     <Suspense fallback={<p>Loading...</p>}>
       <>
-      {/* <Toaster />
-       */}
+      <Toaster />
+      
        <ToastContainer position="top-right" autoClose={2000} />
         <Routes>
           <Route path="/" element={<Home />} />
