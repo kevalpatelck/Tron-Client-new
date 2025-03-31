@@ -6,7 +6,7 @@ import React, {
   useImperativeHandle,
 } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MoveDownLeft, MoveUpRight, Import } from "lucide-react";
+import { MoveDownLeft, MoveUpRight, Import, History } from "lucide-react";
 import moment from "moment";
 import { log } from "console";
 import SliderImage from "../SliderImage";
@@ -83,21 +83,23 @@ const TransactionList = forwardRef((props, ref) => {
       await navigator.clipboard.writeText(selectedAccount.privateKey || "");
       // setShowPopup(true);
       toast.custom(
-        
         <div className="flex items-start gap-3 bg-white text-gray-800 px-6 py-4 rounded-xl shadow-2xl border border-blue-200 w-[400px]">
-          
           <div className="mt-1">
             <Import size={28} className="text-blue-500" />
           </div>
           <div className="text-[14px] leading-relaxed font-medium">
-            <div className="text-blue-600 font-semibold mb-1">Import Subaccount Wallet</div>
-            <div>Your subAccount's privatekey is copied. Click on this button to learn how to import a subaccount using a private key.</div>
+            <div className="text-blue-600 font-semibold mb-1">
+              Import Subaccount Wallet
+            </div>
+            <div>
+              Your subAccount's privatekey is copied. Click on this button to
+              learn how to import a subaccount using a private key.
+            </div>
           </div>
         </div>,
         {
-          duration:1500
+          duration: 1500,
         }
-        
       );
       // setShowPopup(true); // Show popup after copy
     } catch (err) {
@@ -355,9 +357,9 @@ const TransactionList = forwardRef((props, ref) => {
                 <td className="py-4 px-4">
                   <button
                     onClick={() => fetchTransactionHistory(account.address)}
-                    className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow hover:scale-105 transition-transform"
+                    className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold py-3 px-5 text-lg rounded-lg shadow hover:scale-105 transition-transform"
                   >
-                    View
+                    <History size={20} />
                   </button>
                 </td>
               </tr>
@@ -410,7 +412,6 @@ const TransactionList = forwardRef((props, ref) => {
         </div>
       )}
 
-      
       {historyPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/70 z-50">
           <div className="bg-white rounded-lg shadow-lg w-[600px] max-h-[80vh] overflow-y-auto p-6">

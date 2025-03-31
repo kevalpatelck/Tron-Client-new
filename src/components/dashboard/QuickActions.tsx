@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Plus  } from "lucide-react";
 import { motion } from "framer-motion";
 
+
 interface QuickActionProps {
   onSend?: () => void;
   onReceive?: () => void;
@@ -43,17 +44,45 @@ const QuickActions = ({
   
       if (response?.data?.success) {
         toast.success("Account Created Successfully", { autoClose: 1500 });
-        alert("sub account added")
+        alert("Sub account added");
         onSubAccountAdded(); // ✅ This will trigger a refresh in Dashboard
       } else {
-        toast.error("Account Already Exists", { autoClose: 1500 });
+        // Extract userName if the account already exists
+        const existingUserName = response?.data?.data?.subAccount?.userName;
+        toast(
+          <div className="flex items-center gap-3 bg-purple-700 text-white px-4 py-3 rounded-lg shadow-lg border-2 border-blue-400 w-[300px]">
+            <div className="mt-1">
+            </div>
+            <div className="text-sm font-medium">
+              <div>
+                A sub-account Named with This Uid With Named <span className="font-semibold mb-1">{existingUserName}</span> already exists.
+              </div>
+            </div>
+          </div>,
+          {
+            autoClose: 2000,
+            closeOnClick: true,
+            draggable: true,
+            position: "top-center", // Center position
+            hideProgressBar: true,
+          }
+        );
+        
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error creating subaccount:", error);
-      toast.error("Error creating subaccount");
+      
+      // If the error response contains data, extract the message
+      if (error.response && error.response.data) {
+        const errorMessage = error.response.data.message || "Error creating subaccount";
+        toast.error(errorMessage, { autoClose: 2000 });
+      } else {
+        toast.error("Error creating subaccount", { autoClose: 2000 });
+      }
     }
     closeForm();
   };
+  
   
 
   const actions = [
