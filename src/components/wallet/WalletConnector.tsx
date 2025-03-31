@@ -69,6 +69,7 @@ const WalletConnector: React.FC<WalletConnectorProps> = ({
         localStorage.setItem("mainWalletAddress", address);
 
         // 🔁 Redirect to dashboard
+  const navigate = useNavigate();
         navigate("/dashboard");
       } else {
         console.log("⚠️ TronLink is installed but no wallet is connected.");

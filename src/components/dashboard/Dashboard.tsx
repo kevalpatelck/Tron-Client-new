@@ -185,7 +185,7 @@ const Dashboard = ({
       </Dialog>
 
       {/* {showPopup && <SliderImage onClose={() => setShowPopup(false)} />} */}
-
+      
     </div>
   );
 };

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+
 import {
   Dialog,
   DialogContent,
@@ -9,7 +11,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { motion } from "framer-motion";
-import { RefreshCw, Plus, Landmark, Import } from "lucide-react";
+import { RefreshCw, Plus, Landmark, Import,Search } from "lucide-react";
 import TransactionFilters from "./TransactionFilters";
 import TransactionList from "./TransactionList";
 import { useDataRefetch } from "./DataRefetchContext";
@@ -146,6 +148,18 @@ const TransactionHistory = ({
             <CardTitle className="text-xl font-bold text-white">
               Sub Accounts
             </CardTitle>
+            {/* <div className="relative w-full md:w-1/3">
+          <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
+          <Input
+            placeholder="Search SubAccounts..."
+            // value={search}
+            // onChange={(e) => {
+            //   setSearch(e.target.value);
+            //   handleFilterChange();
+            // }}
+            className="pl-10 bg-black/50 border-gray-700 text-gray-100 placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
+          />
+        </div> */}
             <Button
               variant="ghost"
               onClick={handlePopup}

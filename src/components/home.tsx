@@ -153,7 +153,7 @@ const Home: React.FC = () => {
         </motion.div>
       </div>
 
-      {isWalletConnected && (
+      {/* {isWalletConnected && (
         <motion.div
           className="fixed bottom-0 left-0 right-0 p-4 flex justify-center z-20"
           initial={{ y: 50, opacity: 0 }}
@@ -167,7 +167,10 @@ const Home: React.FC = () => {
             Disconnect Wallet
           </button>
         </motion.div>
-      )}
+      )} */}
+
+
+
     </div>
   );
 };

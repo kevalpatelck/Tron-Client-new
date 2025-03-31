@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Copy, QrCode, History } from "lucide-react";
 import QRCode from "react-qr-code";
 import moment from "moment";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+
+
 
 import {
   Card,
@@ -68,6 +72,10 @@ const WalletCard = () => {
   const [showQR, setShowQR] = useState(false);
   const [historyPopup, setHistoryPopup] = useState<any>(null);
   const [historyLoading, setHistoryLoading] = useState<boolean>(null);
+
+
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
@@ -150,6 +158,14 @@ const WalletCard = () => {
       setHistoryLoading(false);
     }
   };
+
+  const handleDisconnect = () => {
+    setWalletAddress("")
+    localStorage.removeItem("mainWalletAddress");
+    navigate("/");
+
+
+  }
 
   const displayAddress =
     walletAddress.length > 16
@@ -292,6 +308,20 @@ const WalletCard = () => {
           </div>
         </CardContent>
       </Card>
+      <motion.div
+          className="fixed bottom-0 left-0 right-0 p-4 flex justify-center z-20"
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+        >
+          <button
+            onClick={handleDisconnect}
+            className="px-4 py-2 bg-red-600/20 hover:bg-red-600/30 text-red-400 hover:text-red-300 rounded-full text-sm font-medium transition-colors duration-200 border border-red-600/30"
+          >
+            Disconnect Wallet
+          </button>
+        </motion.div>
+      
 
       <div>
         {historyPopup && (
