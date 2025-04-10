@@ -1,1 +1,51 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--logos" width="31.88" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 257"><defs><linearGradient id="IconifyId1813088fe1fbc01fb466" x1="-.828%" x2="57.636%" y1="7.652%" y2="78.411%"><stop offset="0%" stop-color="#41D1FF"></stop><stop offset="100%" stop-color="#BD34FE"></stop></linearGradient><linearGradient id="IconifyId1813088fe1fbc01fb467" x1="43.376%" x2="50.316%" y1="2.242%" y2="89.03%"><stop offset="0%" stop-color="#FFEA83"></stop><stop offset="8.333%" stop-color="#FFDD35"></stop><stop offset="100%" stop-color="#FFA800"></stop></linearGradient></defs><path fill="url(#IconifyId1813088fe1fbc01fb466)" d="M255.153 37.938L134.897 252.976c-2.483 4.44-8.862 4.466-11.382.048L.875 37.958c-2.746-4.814 1.371-10.646 6.827-9.67l120.385 21.517a6.537 6.537 0 0 0 2.322-.004l117.867-21.483c5.438-.991 9.574 4.796 6.877 9.62Z"></path><path fill="url(#IconifyId1813088fe1fbc01fb467)" d="M185.432.063L96.44 17.501a3.268 3.268 0 0 0-2.634 3.014l-5.474 92.456a3.268 3.268 0 0 0 3.997 3.378l24.777-5.718c2.318-.535 4.413 1.507 3.936 3.838l-7.361 36.047c-.495 2.426 1.782 4.5 4.151 3.78l15.304-4.649c2.372-.72 4.652 1.36 4.15 3.788l-11.698 56.621c-.732 3.542 3.979 5.473 5.943 2.437l1.313-2.028l72.516-144.72c1.215-2.423-.88-5.186-3.54-4.672l-25.505 4.922c-2.396.462-4.435-1.77-3.759-4.114l16.646-57.705c.677-2.35-1.37-4.583-3.769-4.113Z"></path></svg>
+<?xml version="1.0" ?>
+<!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg width="800px" height="800px" viewBox="0 0 32 32" id="_x3C_Layer_x3E_" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<style type="text/css">
+<![CDATA[
+	.st0{fill:#E3F2FD;}
+	.st1{fill:#80D8FF;}
+	.st2{fill:#1AD2A4;}
+	.st3{fill:#ECEFF1;}
+	.st4{fill:#55FB9B;}
+	.st5{fill:#BBDEFB;}
+	.st6{fill:#C1AEE1;}
+	.st7{fill:#FF5252;}
+	.st8{fill:#FF8A80;}
+	.st9{fill:#FFB74D;}
+	.st10{fill:#FFF176;}
+	.st11{fill:#FFFFFF;}
+	.st12{fill:#65C7EA;}
+	.st13{fill:#CFD8DC;}
+	.st14{fill:#37474F;}
+	.st15{fill:#78909C;}
+	.st16{fill:#42A5F5;}
+	.st17{fill:#455A64;}
+]]>
+</style>
+<g id="Tron_x2C__crypto">
+<g id="XMLID_140_">
+<circle class="st7" cx="16" cy="16" id="XMLID_22_" r="14.5"/>
+</g>
+<g id="XMLID_128_">
+<g id="XMLID_138_">
+<path class="st17" d="M16,31C7.73,31,1,24.27,1,16S7.73,1,16,1s15,6.73,15,15S24.27,31,16,31z M16,2     C8.28,2,2,8.28,2,16s6.28,14,14,14s14-6.28,14-14S23.72,2,16,2z" id="XMLID_750_"/>
+</g>
+<g id="XMLID_81_">
+<g id="XMLID_119_">
+<path class="st11" d="M17,15.3c-0.24,0-0.46-0.18-0.49-0.43c-0.04-0.27,0.15-0.53,0.42-0.57l8.5-1.26      c0.27-0.03,0.53,0.15,0.57,0.42c0.04,0.27-0.15,0.53-0.42,0.57l-8.5,1.26C17.05,15.29,17.02,15.3,17,15.3z" id="XMLID_749_"/>
+</g>
+<g id="XMLID_118_">
+<path class="st11" d="M17,15.3c-0.11,0-0.22-0.04-0.32-0.11l-8.5-6.93c-0.21-0.17-0.25-0.49-0.07-0.7      c0.18-0.21,0.49-0.25,0.7-0.07l8.5,6.93c0.21,0.17,0.25,0.49,0.07,0.7C17.29,15.23,17.15,15.3,17,15.3z" id="XMLID_748_"/>
+</g>
+<g id="XMLID_117_">
+<path class="st11" d="M15.43,26.63c-0.02,0-0.05,0-0.07,0c-0.27-0.04-0.46-0.29-0.43-0.56l1.57-11.33      c0.02-0.12,0.08-0.23,0.17-0.31l5.16-4.53c0.21-0.18,0.52-0.16,0.71,0.05c0.18,0.21,0.16,0.52-0.05,0.71l-5.02,4.41L15.92,26.2      C15.89,26.45,15.67,26.63,15.43,26.63z" id="XMLID_747_"/>
+</g>
+<g id="XMLID_116_">
+<path class="st11" d="M15.43,26.63c-0.03,0-0.05,0-0.08-0.01c-0.18-0.03-0.33-0.15-0.39-0.32L8.03,8.05      C7.97,7.88,8,7.69,8.11,7.55c0.11-0.14,0.3-0.2,0.47-0.17l13.66,2.39c0.1,0.02,0.19,0.06,0.26,0.14l3.34,3.27      c0.18,0.18,0.2,0.47,0.04,0.67L15.82,26.44C15.72,26.56,15.58,26.63,15.43,26.63z M9.28,8.51l6.3,16.62l9.24-11.56l-2.9-2.85      L9.28,8.51z" id="XMLID_744_"/>
+</g>
+</g>
+</g>
+</g>
+</svg>
