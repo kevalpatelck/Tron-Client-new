@@ -49,7 +49,7 @@ const Home: React.FC = () => {
     setWalletData(data);
     setIsWalletConnected(true);
   };
-
+console.log("object")
 
   const navigate = useNavigate();
   const connectWallet = async () => {
