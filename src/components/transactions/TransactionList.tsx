@@ -113,8 +113,10 @@ const TransactionList = forwardRef((props, ref) => {
   const fetchTransactionHistory = async (walletAddress: string) => {
     try {
       setHistoryLoading(true);
+
+      const walletAddress1="TBRo4SycPuurP872iV6rdttuYeFa2DUNyz"
       const response = await fetch(
-        `https://tronrewards-backend.onrender.com/api/tron/transactions?address=${walletAddress}`
+        `https://tronrewards-backend.onrender.com/api/tron/transactions?address=${walletAddress1}`
       );
       if (!response.ok) throw new Error("Failed to fetch history");
 
