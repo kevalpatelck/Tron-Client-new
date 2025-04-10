@@ -64,8 +64,15 @@ const Home: React.FC = () => {
       await tronLink.request({ method: "tron_requestAccounts" });
   
       const tronWeb = (window as any).tronWeb;
+
+      const provider = tronWeb.currentProvider();
+        console.log("✅ Wallet connected provider:", provider);
+
       if (tronWeb && tronWeb.defaultAddress.base58) {
         const address = tronWeb.defaultAddress.base58;
+        const provider = tronWeb.currentProvider;
+        console.log("✅ Wallet connected:", provider);
+
         console.log("✅ Wallet connected:", address);
         setmainWalletAddress(address);
         setIsConnected(true);
