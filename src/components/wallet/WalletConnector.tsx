@@ -49,37 +49,37 @@ const WalletConnector: React.FC<WalletConnectorProps> = ({
 
   const navigate = useNavigate();
 
-  const connectWallet = async () => {
-    const tronLink = (window as any).tronLink;
-    if (!tronLink) {
-      alert("❌ TronLink is not installed. Please install it first.");
-      return;
-    }
+  // const connectWallet = async () => {
+  //   const tronLink = (window as any).tronLink;
+  //   if (!tronLink) {
+  //     alert("❌ TronLink is not installed. Please install it first.");
+  //     return;
+  //   }
 
-    try {
-      console.log("🔄 Requesting TronLink connection...");
-      await tronLink.request({ method: "tron_requestAccounts" });
+  //   try {
+  //     console.log("🔄 Requesting TronLink connection...");
+  //     await tronLink.request({ method: "tron_requestAccounts" });
 
-      const tronWeb = (window as any).tronWeb;
-      if (tronWeb && tronWeb.defaultAddress.base58) {
-        const address = tronWeb.defaultAddress.base58;
-        console.log("✅ Wallet connected:", address);
-        setmainWalletAddress(address);
-        setIsConnected(true);
-        localStorage.setItem("mainWalletAddress", address);
+  //     const tronWeb = (window as any).tronWeb;
+  //     if (tronWeb && tronWeb.defaultAddress.base58) {
+  //       const address = tronWeb.defaultAddress.base58;
+  //       console.log("✅ Wallet connected:", address);
+  //       setmainWalletAddress(address);
+  //       setIsConnected(true);
+  //       localStorage.setItem("mainWalletAddress", address);
 
-        // 🔁 Redirect to dashboard
-  const navigate = useNavigate();
-        navigate("/dashboard");
-      } else {
-        console.log("⚠️ TronLink is installed but no wallet is connected.");
-        alert("Please open TronLink and connect your wallet.");
-      }
-    } catch (error) {
-      console.error("❌ Error connecting to TronLink:", error);
-      alert("Failed to connect to TronLink. Please try again.");
-    }
-  };
+  //       // 🔁 Redirect to dashboard
+  // const navigate = useNavigate();
+  //       navigate("/dashboard");
+  //     } else {
+  //       console.log("⚠️ TronLink is installed but no wallet is connected.");
+  //       alert("Please open TronLink and connect your wallet.");
+  //     }
+  //   } catch (error) {
+  //     console.error("❌ Error connecting to TronLink:", error);
+  //     alert("Failed to connect to TronLink. Please try again.");
+  //   }
+  // };
   
   
 
@@ -224,7 +224,7 @@ const WalletConnector: React.FC<WalletConnectorProps> = ({
               </CardTitle> */}
             </CardHeader>
             <CardContent className="pt-6">
-              <ConnectOptions onConnect={connectWallet} />
+              {/* <ConnectOptions onConnect={connectWallet} /> */}
             </CardContent>
           </>
         )}

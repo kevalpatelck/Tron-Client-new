@@ -52,43 +52,67 @@ const Home: React.FC = () => {
 console.log("object")
 
   const navigate = useNavigate();
+
+
+
   const connectWallet = async () => {
     const tronLink = (window as any).tronLink;
-    if (!tronLink) {
+    const tronWeb = (window as any).tronWeb;
+  
+    if (!tronLink || !tronWeb) {
       alert("❌ TronLink is not installed. Please install it first.");
       return;
     }
   
     try {
       console.log("🔄 Requesting TronLink connection...");
-      await tronLink.request({ method: "tron_requestAccounts" });
   
-      const tronWeb = (window as any).tronWeb;
-
-      const provider = tronWeb.currentProvider();
-        console.log("✅ Wallet connected provider:", provider);
-
-      if (tronWeb && tronWeb.defaultAddress.base58) {
-        const address = tronWeb.defaultAddress.base58;
-        const provider = tronWeb.currentProvider;
-        console.log("✅ Wallet connected:", provider);
-
-        console.log("✅ Wallet connected:", address);
-        setmainWalletAddress(address);
-        setIsConnected(true);
-        localStorage.setItem("mainWalletAddress", address);
+      // Check if TronLink is locked (not connected)
+      const requestFnString = tronLink.request?.toString();
   
-        // 🔁 Redirect to dashboard
-        navigate("/dashboard");
+      // If TrustWallet is connected, show alert and stop
+      if (
+        requestFnString?.includes("switch(d)") ||
+        requestFnString?.includes("tron_requestAccounts")
+      ) {
+        alert("⚠️ TrustWallet is active. Please switch to TronLink extension.");
+        return; // stop the flow and don’t show TrustWallet connection process
+      }
+  
+      // If TronLink is locked, show alert to unlock it first
+      if (requestFnString?.includes("this.doRequest")) {
+        console.log("✅ TronLink detected, attempting to connect...");
+  
+        // Request connection from TronLink
+        await tronLink.request({ method: "tron_requestAccounts" });
+  
+        if (tronWeb && tronWeb.defaultAddress.base58) {
+          const address = tronWeb.defaultAddress.base58;
+          console.log("✅ Wallet connected address:", address);
+  
+          setmainWalletAddress(address);
+          setIsConnected(true);
+          localStorage.setItem("mainWalletAddress", address);
+  
+          // 🔁 Redirect to dashboard
+          navigate("/dashboard");
+        } else {
+          console.log("⚠️ TronLink is installed but no wallet is connected.");
+          alert("Please open TronLink and connect your wallet.");
+        }
       } else {
-        console.log("⚠️ TronLink is installed but no wallet is connected.");
-        alert("Please open TronLink and connect your wallet.");
+        alert("❌ Please unlock TronLink first.");
       }
     } catch (error) {
       console.error("❌ Error connecting to TronLink:", error);
       alert("Failed to connect to TronLink. Please try again.");
     }
   };
+  
+  
+
+
+   
   const handleWalletCreated = (data: {
     address: string;
     seedPhrase: string;
