@@ -83,7 +83,7 @@ console.log("object")
       // If TronLink is locked, show alert to unlock it first
       if (requestFnString?.includes("this.doRequest")) {
         console.log("✅ TronLink detected, attempting to connect...");
-  
+      
         // Request connection from TronLink
         await tronLink.request({ method: "tron_requestAccounts" });
   
@@ -127,7 +127,7 @@ console.log("object")
           alert("Please open TronLink and connect your wallet.");
         }
 
-        
+
       } else {
         alert("❌ Please unlock TronLink first.");
       }

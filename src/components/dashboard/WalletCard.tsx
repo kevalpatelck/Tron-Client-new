@@ -158,6 +158,8 @@ const WalletCard = () => {
   const handleDisconnect = () => {
     setWalletAddress("")
     localStorage.removeItem("mainWalletAddress");
+    localStorage.removeItem("usdt");
+    localStorage.removeItem("trxbalance");
     navigate("/");
 
 
