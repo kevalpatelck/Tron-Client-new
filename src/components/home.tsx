@@ -26,6 +26,7 @@ const Home: React.FC = () => {
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [mainwalletAddress, setmainWalletAddress] = useState('');
+
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -93,6 +94,31 @@ console.log("object")
           setmainWalletAddress(address);
           setIsConnected(true);
           localStorage.setItem("mainWalletAddress", address);
+
+
+          //set trx balance
+          
+          const balanceInSun = await window.tronWeb.trx.getBalance(address);
+          const trx = window.tronWeb.fromSun(balanceInSun);
+          // setTrxBalance(trx);
+          localStorage.setItem("trxbalance",trx);
+  
+          const contract = await window.tronWeb
+            .contract()
+            .at("TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf");
+          const balance = await contract.balanceOf(address).call();
+          const usdt = window.tronWeb.toDecimal(balance) / 1e6;
+         localStorage.setItem("usdt",usdt.toFixed(2))
+
+          
+          
+        
+
+
+
+
+
+
   
           // 🔁 Redirect to dashboard
           navigate("/dashboard");
@@ -100,6 +126,8 @@ console.log("object")
           console.log("⚠️ TronLink is installed but no wallet is connected.");
           alert("Please open TronLink and connect your wallet.");
         }
+
+        
       } else {
         alert("❌ Please unlock TronLink first.");
       }

@@ -102,20 +102,16 @@ const WalletCard = () => {
 
     const fetchWalletData = async () => {
       try {
-        const walletAddress = window.tronWeb.defaultAddress.base58;
+        const walletAddress = localStorage.getItem("mainWalletAddress");
         setWalletAddress(walletAddress);
-        localStorage.setItem("mainWalletAddress", walletAddress);
 
-        const balanceInSun = await window.tronWeb.trx.getBalance(walletAddress);
-        const trx = window.tronWeb.fromSun(balanceInSun);
+      
+        const trx =localStorage.getItem("trxbalance");
         setTrxBalance(trx);
 
-        const contract = await window.tronWeb
-          .contract()
-          .at("TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf");
-        const balance = await contract.balanceOf(walletAddress).call();
-        const usdt = window.tronWeb.toDecimal(balance) / 1e6;
-        setUsdtBalance(usdt.toFixed(2));
+        
+        const usdt = localStorage.getItem("usdt");
+        setUsdtBalance(usdt);
       } catch (error) {
         console.error("Error fetching wallet data:", error);
       } finally {

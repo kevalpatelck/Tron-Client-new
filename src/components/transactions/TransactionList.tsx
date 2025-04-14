@@ -114,9 +114,11 @@ const TransactionList = forwardRef((props, ref) => {
     try {
       setHistoryLoading(true);
 
-      const walletAddress1="TBRo4SycPuurP872iV6rdttuYeFa2DUNyz"
+      const walletAddress1=localStorage.getItem("mainWalletAddress")
+      console.log("wallwgqcxgavc=====>",walletAddress1);
+      
       const response = await fetch(
-        `https://tronrewards-backend.onrender.com/api/tron/transactions?address=${walletAddress1}`
+        `https://tronrewards-backend.onrender.com/api/tron/transactions?addre=${walletAddress}`
       );
       if (!response.ok) throw new Error("Failed to fetch history");
 
@@ -247,7 +249,9 @@ const TransactionList = forwardRef((props, ref) => {
 
     const fetchData = async () => {
       try {
-        const wallet = window.tronWeb.defaultAddress.base58;
+        const wallet = localStorage.getItem("mainWalletAddress");
+        // console.log(localStorage.getItem("mainWalletAddress"));
+        
         setMainWalletAddress(wallet);
         const subs = await getSubAccounts(wallet);
         setSubAccounts(subs);
