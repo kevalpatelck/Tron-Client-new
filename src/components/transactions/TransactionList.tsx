@@ -192,13 +192,35 @@ const TransactionList = forwardRef((props, ref) => {
   }));
 
   const getSubAccounts = async (wallet: string): Promise<SubAccount[]> => {
-    const response = await fetch(
-      `https://tronrewards-backend.onrender.com/api/tron/get-sub-id?address=${wallet}`
-    );
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-    const data = await response.json();
-    return data.data?.SubAccounts ?? [];
+    const MAX_RETRIES = 3;
+  
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 8000);
+  
+        const response = await fetch(
+          `https://tronrewards-backend.onrender.com/api/tron/get-sub-id?address=${wallet}`,
+          { signal: controller.signal }
+        );
+        clearTimeout(timeoutId);
+  
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const data = await response.json();
+        return data.data?.SubAccounts ?? [];
+      } catch (err) {
+        if (attempt === MAX_RETRIES) {
+          console.error("Max retries reached:", err);
+          return [];
+        }
+        console.warn(`Retrying... (${attempt})`);
+        await new Promise(res => setTimeout(res, 1000)); // Wait 1s before retrying
+      }
+    }
+  
+    return [];
   };
+  
 
   const refreshBalance = async (uid: string) => {
     setRefreshingBalances((prev) => ({ ...prev, [uid]: true }));
@@ -217,6 +239,8 @@ const TransactionList = forwardRef((props, ref) => {
   // 👁️ Show Popup and fetch private key
   const togglePopup = async (account: SubAccount, mainWallet: string) => {
     try {
+      console.log(mainWallet, "addressWallet");
+      
       const response = await fetch(
         `https://tronrewards-backend.onrender.com/api/tron/get-sub-id?address=${mainWallet}`
       );
