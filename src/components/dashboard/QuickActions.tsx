@@ -3,9 +3,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Plus  } from "lucide-react";
+import { Plus } from "lucide-react";
 import { motion } from "framer-motion";
-
 
 interface QuickActionProps {
   onSend?: () => void;
@@ -41,7 +40,7 @@ const QuickActions = ({
         "https://tronrewards-backend.onrender.com/api/tron/create-sub",
         formData
       );
-  
+
       if (response?.data?.success) {
         toast.success("Account Created Successfully", { autoClose: 1500 });
         alert("Sub account added");
@@ -51,11 +50,12 @@ const QuickActions = ({
         const existingUserName = response?.data?.data?.subAccount?.userName;
         toast(
           <div className="flex items-center gap-3 bg-purple-700 text-white px-4 py-3 rounded-lg shadow-lg border-2 border-blue-400 w-[300px]">
-            <div className="mt-1">
-            </div>
+            <div className="mt-1"></div>
             <div className="text-sm font-medium">
               <div>
-                A sub-account Named with This Uid With Named <span className="font-semibold mb-1">{existingUserName}</span> already exists.
+                A sub-account Named with This Uid With Named{" "}
+                <span className="font-semibold mb-1">{existingUserName}</span>{" "}
+                already exists.
               </div>
             </div>
           </div>,
@@ -67,14 +67,14 @@ const QuickActions = ({
             hideProgressBar: true,
           }
         );
-        
       }
     } catch (error: any) {
       console.error("Error creating subaccount:", error);
-      
+
       // If the error response contains data, extract the message
       if (error.response && error.response.data) {
-        const errorMessage = error.response.data.message || "Error creating subaccount";
+        const errorMessage =
+          error.response.data.message || "Error creating subaccount";
         toast.error(errorMessage, { autoClose: 2000 });
       } else {
         toast.error("Error creating subaccount", { autoClose: 2000 });
@@ -82,8 +82,6 @@ const QuickActions = ({
     }
     closeForm();
   };
-  
-  
 
   const actions = [
     {
@@ -101,7 +99,7 @@ const QuickActions = ({
           <CardTitle className="text-xl text-white">Quick Actions</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {actions.map((action, index) => (
               <motion.div
                 key={index}
@@ -111,15 +109,19 @@ const QuickActions = ({
               >
                 <Button
                   onClick={action.onClick}
-                  className={`w-[590px] h-[130px] flex flex-col items-center justify-center space-y-2
-                    bg-gradient-to-r from-blue-500 via-purple-500 to-pink-400
-                    bg-[length:200%_200%] animate-gradient-flow
-                    transition-all duration-1200 rounded-xl text-white`}
+                  className={`w-full sm:w-full md:w-[670px] lg:w-[400px] xl:w-[500px]
+            h-[100px] sm:h-[110px] md:h-[120px] lg:h-[130px]
+            flex flex-col items-center justify-center space-y-2
+            bg-gradient-to-r from-blue-500 via-purple-500 to-pink-400
+            bg-[length:200%_200%] animate-gradient-flow
+            transition-all duration-1200 rounded-xl text-white mx-auto`}
                 >
                   <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm">
                     {action.icon}
                   </div>
-                  <div className="text-sm font-medium">{action.title}</div>
+                  <div className="text-sm font-medium text-center">
+                    {action.title}
+                  </div>
                 </Button>
               </motion.div>
             ))}
@@ -158,10 +160,11 @@ const QuickActions = ({
               </div>
               <button
                 type="submit"
-                className="w-full py-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded font-medium text-white"
+                className="w-full sm:w-1/2 md:w-1/3 py-3 sm:py-2 md:py-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded font-medium text-white text-lg sm:text-base md:text-sm"
               >
                 Add Sub Account
               </button>
+
               <button
                 type="button"
                 onClick={closeForm}

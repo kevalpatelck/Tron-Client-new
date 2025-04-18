@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 
-
 const Home: React.FC = () => {
   const [isWalletConnected, setIsWalletConnected] = useState(false);
   const [walletData, setWalletData] = useState<{
@@ -25,7 +24,7 @@ const Home: React.FC = () => {
 
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [isConnected, setIsConnected] = useState<boolean>(false);
-  const [mainwalletAddress, setmainWalletAddress] = useState('');
+  const [mainwalletAddress, setmainWalletAddress] = useState("");
 
   // Animation variants
   const containerVariants = {
@@ -50,84 +49,69 @@ const Home: React.FC = () => {
     setWalletData(data);
     setIsWalletConnected(true);
   };
-console.log("object")
+  console.log("object");
 
   const navigate = useNavigate();
-
-
 
   const connectWallet = async () => {
     const tronLink = (window as any).tronLink;
     const tronWeb = (window as any).tronWeb;
-  
+
     if (!tronLink || !tronWeb) {
       alert("❌ TronLink is not installed. Please install it first.");
       return;
     }
-  
+
     try {
       console.log("🔄 Requesting TronLink connection...");
-  
+
       // Check if TronLink is locked (not connected)
       const requestFnString = tronLink.request?.toString();
-  
+
       // If TrustWallet is connected, show alert and stop
       if (
         requestFnString?.includes("switch(d)") ||
         requestFnString?.includes("tron_requestAccounts")
       ) {
-        alert("⚠️ TrustWallet is active. Please switch to TronLink extension.");
+        alert("⚠️ TrustWallet is detached. Please switch to TronLink extension.");
         return; // stop the flow and don’t show TrustWallet connection process
       }
-  
+
       // If TronLink is locked, show alert to unlock it first
       if (requestFnString?.includes("this.doRequest")) {
         console.log("✅ TronLink detected, attempting to connect...");
-      
+
         // Request connection from TronLink
         await tronLink.request({ method: "tron_requestAccounts" });
-  
+
         if (tronWeb && tronWeb.defaultAddress.base58) {
           const address = tronWeb.defaultAddress.base58;
           console.log("✅ Wallet connected address:", address);
-  
+
           setmainWalletAddress(address);
           setIsConnected(true);
           localStorage.setItem("mainWalletAddress", address);
 
-
           //set trx balance
-          
+
           const balanceInSun = await window.tronWeb.trx.getBalance(address);
           const trx = window.tronWeb.fromSun(balanceInSun);
           // setTrxBalance(trx);
-          localStorage.setItem("trxbalance",trx);
-  
+          localStorage.setItem("trxbalance", trx);
+
           const contract = await window.tronWeb
             .contract()
             .at("TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf");
           const balance = await contract.balanceOf(address).call();
           const usdt = window.tronWeb.toDecimal(balance) / 1e6;
-         localStorage.setItem("usdt",usdt.toFixed(2))
+          localStorage.setItem("usdt", usdt.toFixed(2));
 
-          
-          
-        
-
-
-
-
-
-
-  
           // 🔁 Redirect to dashboard
           navigate("/dashboard");
         } else {
           console.log("⚠️ TronLink is installed but no wallet is connected.");
           alert("Please open TronLink and connect your wallet.");
         }
-
-
       } else {
         alert("❌ Please unlock TronLink first.");
       }
@@ -136,11 +120,7 @@ console.log("object")
       alert("Failed to connect to TronLink. Please try again.");
     }
   };
-  
-  
 
-
-   
   const handleWalletCreated = (data: {
     address: string;
     seedPhrase: string;
@@ -154,7 +134,6 @@ console.log("object")
     setWalletData(null);
   };
 
-  
   return (
     <div className="min-h-screen w-full overflow-hidden bg-black">
       {/* Animated background with circuit patterns */}
@@ -198,8 +177,8 @@ console.log("object")
                 /> */}
 
                 <CardContent className=" border-2px rounded-xl backdrop-blur-md flex flex-col bg-black/40 space-y-1.5 p-6 text-center pb-2">
-              <ConnectOptions onConnect={connectWallet} />
-            </CardContent>
+                  <ConnectOptions onConnect={connectWallet} />
+                </CardContent>
               </motion.div>
             </div>
           ) : (
@@ -227,12 +206,11 @@ console.log("object")
           </button>
         </motion.div>
       )} */}
-
-
-
     </div>
   );
 };
 
 export default Home;
-      {/* Footer with disconnect option when wallet is connected */}
+{
+  /* Footer with disconnect option when wallet is connected */
+}
