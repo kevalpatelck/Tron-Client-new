@@ -103,9 +103,13 @@ const Home: React.FC = () => {
           localStorage.setItem("trxbalance", trx);
           console.log(trx, "nhjkdghjdvmoneyyyyyyyy");
 
+          // if (!tronWeb || !tronWeb.ready) {
+          //   alert("🔌 TronWeb is not ready yet. Please try again.");
+          //   return;
+          // }
           // const contract = await window.tronWeb
           //   .contract()
-          //   .at("TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf");
+          //   .at("TXLAQ63Xg1NAzckPwKHvzw7CSEmLMEqcdj");
           // const balance = await contract.balanceOf(address).call();
           // const usdt = window.tronWeb.toDecimal(balance) / 1e6;
           // localStorage.setItem("usdt", usdt.toFixed(2));
