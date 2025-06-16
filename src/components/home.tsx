@@ -73,7 +73,9 @@ const Home: React.FC = () => {
         requestFnString?.includes("switch(d)") ||
         requestFnString?.includes("tron_requestAccounts")
       ) {
-        alert("⚠️ TrustWallet is detached. Please switch to TronLink extension.");
+        alert(
+          "⚠️ TrustWallet is detached. Please switch to TronLink extension."
+        );
         return; // stop the flow and don’t show TrustWallet connection process
       }
 
@@ -83,6 +85,7 @@ const Home: React.FC = () => {
 
         // Request connection from TronLink
         await tronLink.request({ method: "tron_requestAccounts" });
+        console.log(tronWeb, "ihydguydfududgv");
 
         if (tronWeb && tronWeb.defaultAddress.base58) {
           const address = tronWeb.defaultAddress.base58;
@@ -98,13 +101,14 @@ const Home: React.FC = () => {
           const trx = window.tronWeb.fromSun(balanceInSun);
           // setTrxBalance(trx);
           localStorage.setItem("trxbalance", trx);
+          console.log(trx, "nhjkdghjdvmoneyyyyyyyy");
 
-          const contract = await window.tronWeb
-            .contract()
-            .at("TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf");
-          const balance = await contract.balanceOf(address).call();
-          const usdt = window.tronWeb.toDecimal(balance) / 1e6;
-          localStorage.setItem("usdt", usdt.toFixed(2));
+          // const contract = await window.tronWeb
+          //   .contract()
+          //   .at("TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf");
+          // const balance = await contract.balanceOf(address).call();
+          // const usdt = window.tronWeb.toDecimal(balance) / 1e6;
+          // localStorage.setItem("usdt", usdt.toFixed(2));
 
           // 🔁 Redirect to dashboard
           navigate("/dashboard");
